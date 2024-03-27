@@ -1,3 +1,9 @@
+
 export function Home() {
-  h1
+  
+  return(
+    <div>
+      Encontre o café perfeito para qualquer hora do dia
+    </div>
+  )
 }
