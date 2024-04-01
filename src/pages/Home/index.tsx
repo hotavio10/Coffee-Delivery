@@ -1,9 +1,11 @@
+import { Container}
+
 
 export function Home() {
   
   return(
-    <div>
+    <Container >
       Encontre o café perfeito para qualquer hora do dia
-    </div>
+    </Container>
   )
 }
