@@ -1,16 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import { Home } from './pages/Home'
-import { Card } from './pages/Card'
-import { Confirm } from './pages/Confirm'
-import { App } from './App'
+import { ThemeProvider } from 'styled-components'
+import { RouterProvider } from "react-router-dom";
 
+import { defaultTheme } from './styles/themes/default'
 
+import { router } from './routes/router'
+import { GlobalStyle } from './styles/global';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Home/>
+    <ThemeProvider theme={defaultTheme}>
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>,
 )
