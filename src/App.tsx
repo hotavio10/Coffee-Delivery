@@ -1,11 +1,11 @@
 
 import { Outlet } from 'react-router-dom'
+import { Header } from './components/Header'
 
 export function App() {
   return (
     <>
-    <img src="./images/logo.svg" alt="" />
-
+      <Header />
       <Outlet />
     </>
   )
