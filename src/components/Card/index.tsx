@@ -1,1 +1,3 @@
-export function Card() {}``
+export function Card() {
+  return ()
+}

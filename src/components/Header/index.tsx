@@ -4,10 +4,8 @@ import { Container, Nav } from './styles'
 import { ShoppingCart } from '@phosphor-icons/react'
 
 
-//import { useCard } from '../../hooks/useCard'
-
 export function Header() {
-  //const { card } = useCard{}
+
   return (
     <Container>
       <Link to="/Home">
