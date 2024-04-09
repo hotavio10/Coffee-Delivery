@@ -78,9 +78,13 @@ export function Home() {
         <h2>Nossos cafés</h2>
 
         <div>
-          {coffees.map((coffees) => (
-            <Card key={coffees.id} coffees={coffees} />
-          ))}
+          {coffees.map((coffee) => {
+            console.log(coffees)
+            return (
+
+              <Card key={coffee.id} coffee={coffee} />
+            )
+          })}
         </div>
       </CoffeeList>
     </div>
