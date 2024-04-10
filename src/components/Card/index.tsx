@@ -1,4 +1,5 @@
-import { CoffeeImg, Container, Description, Price, Tags, Title } from "./styles";
+import { useState } from "react";
+import { CoffeeImg, Container, Control, Description, Order, Price, Tags, Title } from "./styles";
 
 type CardProps = {
   coffee: {
@@ -12,26 +13,47 @@ type CardProps = {
 }
 
 export function Card({ coffee }: CardProps) {
+  const [quantity, setQuantity] = useState(0)
+
+
+  function incrementQuantity() {
+    setQuantity((state) => state + 1)
+  }
+
+  function decrementQuantity() {
+    if (quantity > 1) {
+      setQuantity((state) => state - 1)
+    }
+  }
+
   return (
     <Container>
       <CoffeeImg>
-      <img src={coffee.image} alt={coffee.title} />
+        <img src={coffee.image} alt={coffee.title} />
       </CoffeeImg>
-      <div>
 
-        <Tags>
-          {coffee.tags.map(tag => <p>{tag}</p>)}
-        </Tags>
 
-        <Title>{coffee.title}</Title>
+      <Tags>
+        
+        {coffee.tags.map(tag => <span>{tag}</span>)}
+        
+      </Tags>
 
-        <Description>{coffee.description}</Description>
+      <Title>{coffee.title}</Title>
 
+      <Description>{coffee.description}</Description>
+
+      <Control>
         <Price>
-           <span>R$</span>
+          <span>R$</span>
           <span>{coffee.price.toFixed(2)}</span>
         </Price>
-      </div>
+
+        <Order>
+
+
+        </Order>
+      </Control>
     </Container>
   )
 }

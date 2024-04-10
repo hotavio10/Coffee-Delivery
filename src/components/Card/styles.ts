@@ -21,7 +21,7 @@ export const CoffeeImg = styled.div`
   align-self: center;
 `
 
-export const Tags = styled.div`
+export const Tags = styled.span`
   margin-top: 12px;
 
   display: flex;
