@@ -2,6 +2,6 @@ import { useContext } from 'react'
 
 import { CardContext } from '../contexts/CardProvider'
 
-export function useCart() {
+export function useCard() {
   return useContext(CardContext)
 }
