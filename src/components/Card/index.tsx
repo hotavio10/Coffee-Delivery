@@ -1,4 +1,4 @@
-import { CoffeeImg, Description, Price, Tags, Title } from "./styles";
+import { CoffeeImg, Container, Description, Price, Tags, Title } from "./styles";
 
 type CardProps = {
   coffee: {
@@ -13,7 +13,7 @@ type CardProps = {
 
 export function Card({ coffee }: CardProps) {
   return (
-    <section>
+    <Container>
       <CoffeeImg>
       <img src={coffee.image} alt={coffee.title} />
       </CoffeeImg>
@@ -23,18 +23,15 @@ export function Card({ coffee }: CardProps) {
           {coffee.tags.map(tag => <p>{tag}</p>)}
         </Tags>
 
-        <Title>
-          <h2>{coffee.title}</h2>
-        </Title>
+        <Title>{coffee.title}</Title>
 
-        <Description>
-          <p>{coffee.description}</p>
-        </Description>
+        <Description>{coffee.description}</Description>
 
         <Price>
-          <p> R${coffee.price.toFixed(2)}</p>
+           <span>R$</span>
+          <span>{coffee.price.toFixed(2)}</span>
         </Price>
       </div>
-    </section>
-  );
+    </Container>
+  )
 }

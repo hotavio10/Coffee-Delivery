@@ -14,7 +14,7 @@ export const Container = styled.div`
   text-align: center;
 `
 
-export const CoffeeImg = styled.img`
+export const CoffeeImg = styled.div`
   margin-top: -20px;
   max-width: 120px;
   max-height: 120px;
@@ -39,9 +39,9 @@ export const Tags = styled.div`
   }
 `
 
-export const Title = styled.h3`
+export const Title = styled.div`
   margin-top: 16px;
-
+        
   color: ${({ theme }) => theme.colors['base-subtitle']};
   ${mixins.fonts.titleS}
 `
