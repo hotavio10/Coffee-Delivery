@@ -15,7 +15,7 @@ export const Container = styled.section`
 export const Nav = styled.header`
   display: flex;
 
-    div {
+    a:last-child {
       ${mixins.fonts.textS};
       font-weight: bold;
       color:  ${({ theme }) => theme.colors['yellow-dark']};

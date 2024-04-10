@@ -1,6 +1,6 @@
 import { CurrencyDollar, MapPin } from "@phosphor-icons/react";
 
-import { QuantityInput } from "../../components/Form/QuantityInput";
+
 
 import { AdressContainer, AdressForm, AdressHeading, CoffeeCard, CoffeeInfo, Container, InfoContainer, OrderContainer, OrderTotal, PaymentContainer, PaymentHeading } from "./styles";
 
@@ -59,7 +59,7 @@ export function Card() {
                   
 
                     <CoffeeInfo>
-                    <QuantityInput/>
+                    
                     </CoffeeInfo>
                   </div>
                 </div>
