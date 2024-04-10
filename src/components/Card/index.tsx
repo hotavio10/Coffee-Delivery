@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 
 import { QuantityInput } from '../Form/QuantityInput'
-import { useCard } from '../../hooks/useCard'
+//import { useCard } from '../../hooks/useCard'
 
 import { CoffeeImg, Container, Control, Description, Order, Price, Tags, Title } from "./styles";
 
@@ -22,7 +22,7 @@ export function Card({ coffee }: CardProps) {
   const [quantity, setQuantity] = useState(1)
   const [isItemAdded, setIsItemAdded] = useState(false)
   const theme = useTheme()
-  const { addItem } = useCard()
+ // const { addItem } = useCard()
 
 
   function incrementQuantity() {
