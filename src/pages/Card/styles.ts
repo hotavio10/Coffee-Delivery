@@ -195,3 +195,5 @@ export const CartTotalInfo = styled.div`
     }
   }
 `
+
+export const CheckoutButton = styled.div``

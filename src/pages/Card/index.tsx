@@ -45,6 +45,18 @@ type FormInputs = {
   paymentMethod: 'credit' | 'debit' | 'cash'
 }
 
+const newOrder = z.object({
+  cep: z.number({ invalid_type_error: 'Informe o CEP' }),
+  street: z.string().min(1, 'Informe a rua'),
+  number: z.string().min(1, 'Informe o número'),
+  fullAddress: z.string(),
+  neighborhood: z.string().min(1, 'Informe o bairro'),
+  city: z.string().min(1, 'Informe a cidade'),
+  state: z.string().min(1, 'Informe a UF'),
+  paymentMethod: z.enum(['credit', 'debit', 'cash'], {
+    invalid_type_error: 'Informe um método de pagamento',
+  }),
+})
 
 export function Card() {
   const {
@@ -67,7 +79,6 @@ export function Card() {
       quantity: item.quantity,
     }
   })
-
   const totalItemsPrice = coffeesInCard.reduce((previousValue, currentItem) => {
     return (
       previousValue += currentItem.price * currentItem.quantity)
@@ -84,8 +95,10 @@ export function Card() {
   })
 
   /* verificação de preço do carrinho*/
-  const selecionadoPaymentMethod = watch('paymentMethod')
+  const selectedPaymentMethod = watch('paymentMethod')
 
+
+  /*adicionar ou remover itens do carrinh*/
   function handleItemIncrement(itemId: string) {
     incrementItemQuantity(itemId)
   }
@@ -131,7 +144,7 @@ export function Card() {
                 placeholder="Rua"
                 containerProps={{ style: { gridArea: 'street' } }}
                 error={errors.street}
-                {...register('street' )}
+                {...register('street')}
               />
               <TextInput
                 placeholder="Número"
@@ -181,17 +194,30 @@ export function Card() {
 
             <PaymentOptions>
               <div>
-                <Radio>
+                <Radio
+                  isSelected={selectedPaymentMethod === 'credit'}
+                  {...register('paymentMethod')}
+                  value="credit"
+                >
+
                   <CreditCard size={16} />
                   <span>Cartão de crédito</span>
                 </Radio>
 
-                <Radio>
+                <Radio
+                isSelected={selectedPaymentMethod === 'debit'}
+                {...register('paymentMethod')}
+                value="debit"
+                >
                   <Bank size={16} />
                   <span>Cartão de débito</span>
                 </Radio>
 
-                <Radio>
+                <Radio
+                isSelected={selectedPaymentMethod === 'cash'}
+                {...register('paymentMethod')}
+                value="cash"
+                >
                   <Money size={16} />
                   <span>Dinheiro</span>
                 </Radio>
