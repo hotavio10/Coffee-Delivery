@@ -10,7 +10,7 @@ interface CardContextType {
 
 }
 
-export const CardContext = createContext({} as CardContextType)
+export const CardContext = createContext({} as CardContextType) 
 
 
 return (

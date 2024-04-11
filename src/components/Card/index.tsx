@@ -1,11 +1,19 @@
 import { CheckFat, ShoppingCart } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
 import { useTheme } from "styled-components";
+import { useEffect, useState } from "react";
 
 import { QuantityInput } from '../Form/QuantityInput'
-//import { useCard } from '../../hooks/useCard'
-
-import { CoffeeImg, Container, Control, Description, Order, Price, Tags, Title } from "./styles";
+import { useCard } from '../../hooks/useCard'
+import { 
+  CoffeeImg, 
+  Container, 
+  Control, 
+  Description, 
+  Order, 
+  Price, 
+  Tags, 
+  Title,
+ } from "./styles";
 
 type CardProps = {
   coffee: {
@@ -22,7 +30,7 @@ export function Card({ coffee }: CardProps) {
   const [quantity, setQuantity] = useState(1)
   const [isItemAdded, setIsItemAdded] = useState(false)
   const theme = useTheme()
- // const { addItem } = useCard()
+  const { addItem } = useCard()
 
 
   function incrementQuantity() {
@@ -61,11 +69,13 @@ export function Card({ coffee }: CardProps) {
   return (
     <Container>
       <CoffeeImg>
-        <img src={coffee.image} alt={coffee.title} />
+    <img src={coffee.image} alt={coffee.title} />
       </CoffeeImg>
 
       <Tags>
-        {coffee.tags.map(tag => <span>{tag}</span>)}
+        {coffee.tags.map((tag) => (
+        <span>{tag}</span>
+      ))}
       </Tags>
 
       <Title>{coffee.title}</Title>
@@ -84,6 +94,7 @@ export function Card({ coffee }: CardProps) {
             incrementQuantity={incrementQuantity}
             decrementQuantity={decrementQuantity}
           />
+
           <button disabled={isItemAdded} onClick={handleAddItem}>
             {isItemAdded ? (
               <CheckFat
@@ -95,7 +106,6 @@ export function Card({ coffee }: CardProps) {
               <ShoppingCart size={22} color={theme.colors['base-card']} />
             )}
           </button>
-
         </Order>
       </Control>
     </Container>
