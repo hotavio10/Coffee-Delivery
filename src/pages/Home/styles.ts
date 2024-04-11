@@ -15,7 +15,7 @@ export const Container = styled.section`
   }
 `
 
-export const Container2 = styled.div`
+export const CoffeeInfo = styled.div`
   max-width: 1160px;
   padding: 92px 20px;
   margin: 0 auto;

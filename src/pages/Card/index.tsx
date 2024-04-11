@@ -1,22 +1,49 @@
-import { CurrencyDollar, MapPin } from "@phosphor-icons/react";
+import { Bank, CreditCard, CurrencyDollar, MapPin, Money, Radio, Trash } from '@phosphor-icons/react';
 
+import { coffees } from '../../../data.json'
+import { useCard } from "../../hooks/useCard";
+import { QuantityInput } from '../../components/Form/QuantityInput';
 
-
-import { AdressContainer, AdressForm, AdressHeading, CoffeeCard, CoffeeInfo, Container, InfoContainer, OrderContainer, OrderTotal, PaymentContainer, PaymentHeading } from "./styles";
+import { AddressContainer, AddressForm, AddressHeading, CoffeeCard, CoffeeInfo, Container, InfoContainer, OrderContainer, OrderTotal, PaymentContainer, PaymentHeading, PaymentOptions } from './styles';
 
 
 export function Card() {
+  const {
+    card,
+    incrementItemQuantity,
+    decrementItemQuantity,
+    removeItem,
+
+  } = useCard()
+
+  const coffeesInCard = card.map((item) => {
+    const coffeeInfo = coffees.find((coffee) => coffee.id === item.id)
+    if (!coffeeInfo) {
+      throw new Error('Invalid coffee.')
+    }
+    return {
+      ...coffeeInfo,
+      quantity: item.quantity,
+    }
+  })
+
+  function handleItemIncrement(itemId: string) {
+    incrementItemQuantity(itemId)
+  }
+  function handleItemDecrement(itemId: string) {
+    decrementItemQuantity(itemId)
+  }
+  function handleItemRemove(itemId: string) {
+    removeItem(itemId)
+  }
   return (
     <Container>
       <InfoContainer>
         <h2>Complete seu pedido</h2>
 
 
-
-        <AdressContainer>
-
-
-          <AdressHeading>
+        <AddressContainer>
+          <AddressHeading>
             <MapPin size={22} />
 
             <div>
@@ -24,12 +51,13 @@ export function Card() {
 
               <p>Informe o endereço onde deseja receber o seu pedido</p>
             </div>
-          </AdressHeading>
 
-          <AdressForm>
+          </AddressHeading>
+          <AddressForm>
 
-          </AdressForm>
-        </AdressContainer >
+          </AddressForm>
+
+        </ AddressContainer>
 
         <PaymentContainer>
           <PaymentHeading>
@@ -43,30 +71,61 @@ export function Card() {
               </p>
             </div>
           </PaymentHeading>
-        </PaymentContainer>
 
+          <PaymentOptions>
+            <div>
+              <Radio>
+                <CreditCard size={16} />
+                <span>Cartão de crédito</span>
+              </Radio>
+
+              <Radio>
+                <Bank size={16} />
+                <span>Cartão de débito</span>
+              </Radio>
+
+              <Radio>
+                <Money size={16} />
+                <span>Dinheiro</span>
+              </Radio>
+            </div>
+          </PaymentOptions>
+
+
+        </PaymentContainer>
       </InfoContainer>
 
       <OrderContainer>
         <h2>Cafés Selecionados</h2>
 
         <OrderTotal>
-          
-              <CoffeeCard>
-                <div>
-                  <img src="{coffee.image}" alt="{coffee.title}" />
-                  <div>
-                  
 
-                    <CoffeeInfo>
-                    
-                    </CoffeeInfo>
-                  </div>
-                </div>
-              </CoffeeCard>
-          
-        </OrderTotal>
-      </OrderContainer>
+          <CoffeeCard>
+            <div>
+              <img src="{coffee.image}" alt="{coffee.title}" />
+              <div>
+                <span>{coffeesInCard.title}</span>
+
+
+                <CoffeeInfo>
+                  <QuantityInput
+                    quantity={coffees.quantity}
+                    incrementQuantity={() => handleItemIncrement(coffees.id)}
+                    decrementQuantity={() => handleItemDecrement(coffees.id)}
+                  />
+
+                  <button onClick={() => handleItemRemove(coffees.id)}>
+                    <Trash />
+                    <span>Remover</span>
+                  </button>
+                  </CoffeeInfo>
+                
+              </div>
+            </div>
+            </CoffeeCard>
+
+          </OrderTotal>
+        </OrderContainer>
     </Container>
   )
 }

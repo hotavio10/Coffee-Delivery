@@ -4,9 +4,7 @@ import { useTheme } from 'styled-components'
 import { Card } from '../../components/Card'
 
 import { coffees } from '../../../data.json'
-
-
-import { Container, Container2, CoffeeList, Heading, Info } from './styles'
+import { Container, CoffeeInfo, CoffeeList, Heading, Info } from './styles'
 
 export function Home() {
   const theme = useTheme()
@@ -14,7 +12,7 @@ export function Home() {
   return (
     <div>
       <Container>
-        <Container2>
+        <CoffeeInfo>
           <div>
             <Heading>
               <h1>Encontre o café perfeito para qualquer hora do dia</h1>
@@ -69,7 +67,7 @@ export function Home() {
           </div>
 
           <img src="/images/container.svg" alt="Café do Coffee Delivery" />
-        </Container2>
+        </CoffeeInfo>
 
         <img src="/images/container-bg.svg" id="container-bg" alt="" />
       </Container>
@@ -79,9 +77,8 @@ export function Home() {
 
         <div>
           {coffees.map((coffee) => {
-            console.log(coffees)
+            
             return (
-
               <Card key={coffee.id} coffee={coffee} />
             )
           })}
