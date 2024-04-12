@@ -16,13 +16,12 @@ import { useCard } from "../../hooks/useCard";
 import { QuantityInput } from '../../components/Form/QuantityInput';
 import { TextInput } from '../../components/Form/TextInput'
 import { Radio } from '../../components/Form/Radio';
-
-
 import {
   AddressContainer,
   AddressForm,
   AddressHeading,
-  CartTotalInfo,
+  CardTotalInfo,
+  CheckoutButton,
   CoffeeCard,
   CoffeeInfo,
   Container,
@@ -30,6 +29,7 @@ import {
   OrderContainer,
   OrderTotal,
   PaymentContainer,
+  PaymentErrorMessage,
   PaymentHeading,
   PaymentOptions
 } from './styles';
@@ -45,6 +45,7 @@ type FormInputs = {
   paymentMethod: 'credit' | 'debit' | 'cash'
 }
 
+/*regras de validação para cada campo de input*/
 const newOrder = z.object({
   cep: z.number({ invalid_type_error: 'Informe o CEP' }),
   street: z.string().min(1, 'Informe a rua'),
@@ -57,6 +58,12 @@ const newOrder = z.object({
     invalid_type_error: 'Informe um método de pagamento',
   }),
 })
+
+/* definição de esquema da estrutura*/
+export type OrderInfo = z.infer<typeof newOrder>
+
+/*definindo preço do frete*/
+const shippingPrice = 3.5
 
 export function Card() {
   const {
@@ -74,6 +81,7 @@ export function Card() {
     if (!coffeeInfo) {
       throw new Error('Invalid coffee.')
     }
+
     return {
       ...coffeeInfo,
       quantity: item.quantity,
@@ -114,7 +122,9 @@ export function Card() {
     if (card.length === 0) {
       return alert('è preciso ter pelo menos um item no carrinho')
     }
+    checkout(data)
   }
+
   return (
     <Container>
       <InfoContainer>
@@ -130,8 +140,8 @@ export function Card() {
 
                 <p>Informe o endereço onde deseja receber o seu pedido</p>
               </div>
-
             </AddressHeading>
+
             <AddressForm>
               <TextInput
                 placeholder="CEP"
@@ -149,11 +159,12 @@ export function Card() {
               <TextInput
                 placeholder="Número"
                 containerProps={{ style: { gridArea: 'number' } }}
-                error={errors.cep}
-                {...register('cep')}
+                error={errors.number}
+                {...register('number')}
               />
               <TextInput
-                placeholder="Complemento"
+                placeholder="Complemento" 
+                optional
                 containerProps={{ style: { gridArea: 'fullAddress' } }}
                 error={errors.fullAddress}
                 {...register('fullAddress')}
@@ -172,6 +183,7 @@ export function Card() {
               />
               <TextInput
                 placeholder="UF"
+                maxLength={2}
                 containerProps={{ style: { gridArea: 'state' } }}
                 error={errors.state}
                 {...register('state')}
@@ -185,6 +197,7 @@ export function Card() {
 
               <div>
                 <span>Pagamento</span>
+
                 <p>
                   O pagamento é feito na entrega. Escolha a forma que deseja
                   pagar
@@ -205,26 +218,30 @@ export function Card() {
                 </Radio>
 
                 <Radio
-                isSelected={selectedPaymentMethod === 'debit'}
-                {...register('paymentMethod')}
-                value="debit"
+                  isSelected={selectedPaymentMethod === 'debit'}
+                  {...register('paymentMethod')}
+                  value="debit"
                 >
                   <Bank size={16} />
                   <span>Cartão de débito</span>
                 </Radio>
 
                 <Radio
-                isSelected={selectedPaymentMethod === 'cash'}
-                {...register('paymentMethod')}
-                value="cash"
+                  isSelected={selectedPaymentMethod === 'cash'}
+                  {...register('paymentMethod')}
+                  value="cash"
                 >
                   <Money size={16} />
                   <span>Dinheiro</span>
                 </Radio>
               </div>
+
+              {errors.paymentMethod ? (
+                <PaymentErrorMessage role="alert">
+                  {errors.paymentMethod.message}
+                </PaymentErrorMessage>
+              ) : null}
             </PaymentOptions>
-
-
           </PaymentContainer>
         </form>
       </InfoContainer>
@@ -232,15 +249,13 @@ export function Card() {
       <OrderContainer>
         <h2>Cafés Selecionados</h2>
 
-
-
         <OrderTotal>
-
           {coffeesInCard.map((coffee) => (
             <Fragment key={coffee.id}>
               <CoffeeCard>
                 <div>
                   <img src="{coffee.image}" alt="{coffee.title}" />
+
                   <div>
                     <span>{coffee.title}</span>
 
@@ -266,7 +281,41 @@ export function Card() {
             </Fragment>
           ))}
 
+          <CardTotalInfo>
+            <div>
+              <span>Total de Itens</span>
+              <span>
+                {new Intl.NumberFormat('pt-br', {
+                  currency: 'BRL',
+                  style: 'currency',
+                }).format(totalItemsPrice)}
+              </span>
+            </div>
 
+            <div>
+              <span>Entrega</span>
+              <span>
+                {new Intl.NumberFormat('pt-br', {
+                  currency: 'BRL',
+                  style: 'currency',
+                }).format(shippingPrice)}
+              </span>
+            </div>
+
+            <div>
+              <span>Total</span>
+              <span>
+                {new Intl.NumberFormat('pt-br', {
+                  currency: 'BRL',
+                  style: 'currency',
+                }).format(totalItemsPrice + shippingPrice)}
+              </span>
+            </div>
+          </CardTotalInfo>
+
+          <CheckoutButton type="submit" form="order">
+            Confirmar pedido
+          </CheckoutButton>
         </OrderTotal>
       </OrderContainer>
     </Container>

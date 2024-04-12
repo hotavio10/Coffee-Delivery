@@ -169,7 +169,7 @@ export const OrderTotal = styled.div`
   }
 `
 
-export const CartTotalInfo = styled.div`
+export const CardTotalInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -196,4 +196,28 @@ export const CartTotalInfo = styled.div`
   }
 `
 
-export const CheckoutButton = styled.div``
+export const CheckoutButton = styled.div`
+
+margin-top: 24px;
+  width: 100%;
+  padding: 12px;
+  text-transform: uppercase;
+
+  ${mixins.fonts.buttonG};
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.yellow};
+
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors['yellow-dark']};
+  }
+
+  border-radius: 6px;
+`
+
+export const PaymentErrorMessage = styled.p`
+  ${mixins.fonts.textXS};
+  font-weight: 400;
+  color: red;
+`
