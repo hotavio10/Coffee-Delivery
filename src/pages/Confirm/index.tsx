@@ -6,7 +6,7 @@ import { useCard } from '../../hooks/useCard'
 
 import { Container, Heading, Info, InfoContent, Order } from './styles'
 
-export function Success() {
+export function Confirm() {
   const { orders } = useCard()
   const { orderId } = useParams()
   const orderInfo = orders.find((order) => order.id === Number(orderId))
