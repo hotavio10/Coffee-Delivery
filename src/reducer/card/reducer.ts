@@ -27,6 +27,13 @@ export function cardReducer(state: CardState, action: Actions) {
         } else {
           draft.cart.push(action.payload.item)
         }
-        return state
+      })
+
+      case ActionTypes.REMOVE_ITEM:
+      return produce(state, (draft) => {
+        const itemToRemoveId = draft.card.findIndex(
+          (item) => item.id === action.payload.itemId,
+        )
+        draft.card.splice(itemToRemoveId, 1)
       })
     }}
