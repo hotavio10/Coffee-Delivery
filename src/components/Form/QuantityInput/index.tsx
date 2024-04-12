@@ -6,7 +6,7 @@ type Props = {
   incrementQuantity: () => void
   decrementQuantity: () => void
 }
-/*funconalidade de adicionar ou remover itens no contador do carrinho*/
+/*funconalidade de adicionar ou remover itens no contador de quantidade*/
 export function QuantityInput({
   quantity,
   incrementQuantity,
