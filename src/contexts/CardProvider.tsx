@@ -3,7 +3,7 @@ import { createContext, ReactNode, useEffect, useReducer } from 'react'
 
 import { OrderInfo } from '../pages/Card'
 import { useNavigate } from 'react-router-dom'
-import { Item } from '../reducer/cart/reducer'
+import { Item, Order } from '../reducer/cart/reducer'
 
 interface CardContextType {
   card: Item[]
@@ -77,9 +77,11 @@ export function CardContextProvider({ children }: CardContextProviderProps) {
       value={{
         addItem,
         card,
+        orders,
         decrementItemQuantity,
         incrementItemQuantity,
         removeItem,
+        checkout,
       }}
     >
       {children}
