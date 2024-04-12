@@ -1,6 +1,6 @@
 import { produce } from "immer"
 import { OrderInfo } from "../../pages/Card"
-import { ActionTypes } from "./actions"
+import { ActionTypes, Actions } from "./actions"
 
 export interface Item {
   id: string
@@ -27,7 +27,7 @@ export function cardReducer(state: CardState, action: Actions) {
         if (itemAlreadyAdded) {
           itemAlreadyAdded.quantity += action.payload.item.quantity
         } else {
-          draft.cart.push(action.payload.item)
+          draft.card.push(action.payload.item)
         }
       })
 
@@ -41,7 +41,7 @@ export function cardReducer(state: CardState, action: Actions) {
 
       case ActionTypes.INCREMENT_ITEM_QUANTITY:
         return produce(state, (draft) => {
-          const itemToIncrement = draft.cart.find(
+          const itemToIncrement = draft.card.find(
             (item) => item.id === action.payload.itemId,
           )
   
@@ -49,5 +49,16 @@ export function cardReducer(state: CardState, action: Actions) {
             itemToIncrement.quantity += 1
           }
         })
+
+        case ActionTypes.DECREMENT_ITEM_QUANTITY:
+      return produce(state, (draft) => {
+        const itemToDecrement = draft.card.find(
+          (item) => item.id === action.payload.itemId,
+        )
+
+        if (itemToDecrement?.id && itemToDecrement.quantity > 1) {
+          itemToDecrement.quantity -= 1
+        }
+      })
   
     }}
