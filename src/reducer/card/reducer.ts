@@ -1,6 +1,6 @@
 import { produce } from "immer"
-import { OrderInfo } from "../../pages/Card"
 import { ActionTypes, Actions } from "./actions"
+import { OrderInfo } from "../../pages/Card"
 
 export interface Item {
   id: string
@@ -31,7 +31,7 @@ export function cardReducer(state: CardState, action: Actions) {
         }
       })
 
-      case ActionTypes.REMOVE_ITEM:
+    case ActionTypes.REMOVE_ITEM:
       return produce(state, (draft) => {
         const itemToRemoveId = draft.card.findIndex(
           (item) => item.id === action.payload.itemId,
@@ -39,18 +39,18 @@ export function cardReducer(state: CardState, action: Actions) {
         draft.card.splice(itemToRemoveId, 1)
       })
 
-      case ActionTypes.INCREMENT_ITEM_QUANTITY:
-        return produce(state, (draft) => {
-          const itemToIncrement = draft.card.find(
-            (item) => item.id === action.payload.itemId,
-          )
-  
-          if (itemToIncrement?.id) {
-            itemToIncrement.quantity += 1
-          }
-        })
+    case ActionTypes.INCREMENT_ITEM_QUANTITY:
+      return produce(state, (draft) => {
+        const itemToIncrement = draft.card.find(
+          (item) => item.id === action.payload.itemId,
+        )
 
-        case ActionTypes.DECREMENT_ITEM_QUANTITY:
+        if (itemToIncrement?.id) {
+          itemToIncrement.quantity += 1
+        }
+      })
+
+    case ActionTypes.DECREMENT_ITEM_QUANTITY:
       return produce(state, (draft) => {
         const itemToDecrement = draft.card.find(
           (item) => item.id === action.payload.itemId,
@@ -60,5 +60,22 @@ export function cardReducer(state: CardState, action: Actions) {
           itemToDecrement.quantity -= 1
         }
       })
-  
-    }}
+
+
+    case ActionTypes.CHECKOUT_CARD:
+      return produce(state, (draft) => {
+        const newOrder = {
+          id: new Date().getTime(),
+          items: state.card,
+          ...action.payload.order,
+        }
+        draft.orders.push(newOrder)
+        draft.card = []
+
+        action.payload.callback(`/order/${newOrder.id}/success`)
+      })
+
+    default:
+      return state
+  }
+}
