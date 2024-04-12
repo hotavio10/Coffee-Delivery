@@ -196,7 +196,7 @@ export const CardTotalInfo = styled.div`
   }
 `
 
-export const CheckoutButton = styled.div`
+export const CheckoutButton = styled.button`
 
 margin-top: 24px;
   width: 100%;

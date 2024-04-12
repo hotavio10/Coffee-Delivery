@@ -158,6 +158,7 @@ export function Card() {
               />
               <TextInput
                 placeholder="Número"
+                type="number"
                 containerProps={{ style: { gridArea: 'number' } }}
                 error={errors.number}
                 {...register('number')}
@@ -254,8 +255,7 @@ export function Card() {
             <Fragment key={coffee.id}>
               <CoffeeCard>
                 <div>
-                  <img src="{coffee.image}" alt="{coffee.title}" />
-
+                  <img src={coffee.image} alt={coffee.title} />
                   <div>
                     <span>{coffee.title}</span>
 

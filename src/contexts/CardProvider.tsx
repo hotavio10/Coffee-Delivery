@@ -1,9 +1,16 @@
 import { createContext, ReactNode, useEffect, useReducer } from 'react'
 
+import { 
+  addItemAction,
+  checkoutCardAction,
+  incrementItemQuantityAction,
+  decrementItemQuantityAction,
+  removeItemAction,
+} from '../reducer/card/actions'
 
 import { OrderInfo } from '../pages/Card'
 import { useNavigate } from 'react-router-dom'
-import { Item, Order } from '../reducer/cart/reducer'
+import { cardReducer, Item, Order } from '../reducer/card/reducer'
 
 interface CardContextType {
   card: Item[]
@@ -55,7 +62,7 @@ export function CardContextProvider({
   }
 
   function checkout(order: OrderInfo) {
-    dispatch(checkoutCartAction(order, navigate))
+    dispatch(checkoutCardAction(order, navigate))
   }
 
   function incrementItemQuantity(itemId: Item['id']) {

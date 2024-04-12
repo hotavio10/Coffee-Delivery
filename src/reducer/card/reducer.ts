@@ -72,7 +72,7 @@ export function cardReducer(state: CardState, action: Actions) {
         draft.orders.push(newOrder)
         draft.card = []
 
-        action.payload.callback(`/order/${newOrder.id}/success`)
+        action.payload.callback(`/order/${newOrder.id}/confirm`)
       })
 
     default:
