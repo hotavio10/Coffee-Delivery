@@ -9,7 +9,7 @@ export function Header() {
 
   return (
     <Container>
-      <Link to="/Home">
+      <Link to="/">
         <img src="/logo.svg" alt="Coffee Delivery" />
       </Link>
 
