@@ -1,4 +1,6 @@
+import { produce } from "immer"
 import { OrderInfo } from "../../pages/Card"
+import { ActionTypes } from "./actions"
 
 export interface Item {
   id: string
@@ -36,4 +38,16 @@ export function cardReducer(state: CardState, action: Actions) {
         )
         draft.card.splice(itemToRemoveId, 1)
       })
+
+      case ActionTypes.INCREMENT_ITEM_QUANTITY:
+        return produce(state, (draft) => {
+          const itemToIncrement = draft.cart.find(
+            (item) => item.id === action.payload.itemId,
+          )
+  
+          if (itemToIncrement?.id) {
+            itemToIncrement.quantity += 1
+          }
+        })
+  
     }}
