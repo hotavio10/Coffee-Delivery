@@ -21,7 +21,9 @@ interface CardContextProviderProps {
   children: ReactNode
 }
 
-export function CardContextProvider({ children }: CardContextProviderProps) {
+export function CardContextProvider({ 
+  children 
+}: CardContextProviderProps) {
   const [cardState, dispatch] = useReducer(
     cardReducer,
     {
