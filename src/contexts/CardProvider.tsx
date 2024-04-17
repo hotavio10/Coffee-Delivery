@@ -8,9 +8,9 @@ import {
   removeItemAction,
 } from '../reducer/card/actions'
 
+import { cardReducer, Item, Order } from '../reducer/card/reducer'
 import { OrderInfo } from '../pages/Card'
 import { useNavigate } from 'react-router-dom'
-import { cardReducer, Item, Order } from '../reducer/card/reducer'
 
 interface CardContextType {
   card: Item[]

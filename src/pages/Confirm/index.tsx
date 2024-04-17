@@ -3,7 +3,6 @@ import { useTheme } from 'styled-components'
 import { useParams } from 'react-router-dom'
 
 import { useCard } from '../../hooks/useCard'
-
 import { Container, Heading, Info, InfoContent, Order } from './styles'
 
 export function Confirm() {

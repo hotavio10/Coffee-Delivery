@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
         element: <Card />,
       },
       {
-        path: '/confirm',
+        path: '/order/:orderId/confirm',
         element: <Confirm />,
       },
     ],

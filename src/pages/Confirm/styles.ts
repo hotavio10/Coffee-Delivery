@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { mixins } from '../../styles/mixins'
 
-export const Container = styled.main`
+export const Container = styled.section`
   display: flex;
   max-width: 1160px;
   margin: 0 auto;
@@ -16,7 +16,7 @@ export const Container = styled.main`
   }
 `
 
-export const Order = styled.section`
+export const Order = styled.div`
   display: flex;
   flex-direction: column;
   gap: 40px;
